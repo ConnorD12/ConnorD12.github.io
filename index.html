@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="description" content="Uthful Wellness — premium NMN supplements for cellular energy and healthy aging. Third-party tested, clean ingredients, fast shipping." />
   <title>Uthful Wellness | Premium NMN Supplements</title>
+
+  <!-- Preconnect for faster font load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    section { scroll-margin-top: 100px; }
 
     :root {
       --primary-blue: #0077b6;
@@ -19,8 +26,9 @@
       --text-gray: #4a5568;
       --bg-light: #f8fafc;
       --white: #ffffff;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.10), 0 10px 10px -5px rgba(0,0,0,0.04);
+      --radius: 16px;
     }
 
     body {
@@ -30,20 +38,25 @@
       background: var(--white);
     }
 
-    html { scroll-behavior: smooth; }
-    section { scroll-margin-top: 100px; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
 
-    /* Navigation */
+    /* ===== Nav ===== */
     .navbar {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255,255,255,0.92);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 119, 182, 0.1);
+      border-bottom: 1px solid rgba(0,119,182,0.12);
       z-index: 1000;
       padding: 0.75rem 0;
-      transition: all 0.3s ease;
+      transition: box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .navbar.scrolled {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.96);
     }
 
     .nav-container {
@@ -53,14 +66,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
 
     .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-    .logo img { height: 45px; width: auto; }
+    .logo img { height: 46px; width: auto; }
 
     .nav-links {
       display: flex;
-      gap: 2.5rem;
+      gap: 2.25rem;
       list-style: none;
       align-items: center;
     }
@@ -68,21 +82,21 @@
     .nav-links a {
       text-decoration: none;
       color: var(--text-dark);
-      font-weight: 500;
+      font-weight: 600;
       font-size: 0.95rem;
-      transition: color 0.3s ease;
+      transition: color 0.2s ease;
       position: relative;
     }
 
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: -4px;
+      bottom: -5px;
       left: 0;
       width: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--primary-blue), var(--primary-teal));
-      transition: width 0.3s ease;
+      transition: width 0.25s ease;
     }
 
     .nav-links a:hover { color: var(--primary-blue); }
@@ -91,27 +105,65 @@
     .nav-cta {
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
       color: var(--white) !important;
-      padding: 0.6rem 1.5rem;
-      border-radius: 50px;
-      font-weight: 600;
-      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+      padding: 0.6rem 1.25rem;
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(0,119,182,0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
     }
 
     .nav-cta::after { display: none !important; }
-    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 119, 182, 0.3); }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0,119,182,0.28); }
 
     .mobile-menu-btn {
       display: none;
       background: none;
-      border: none;
-      font-size: 1.5rem;
+      border: 1px solid rgba(0,119,182,0.25);
+      border-radius: 12px;
+      padding: 0.6rem 0.75rem;
+      font-size: 1.2rem;
       cursor: pointer;
       color: var(--primary-blue);
+      line-height: 1;
     }
 
-    /* Hero Section */
+    /* Mobile dropdown */
+    .mobile-menu {
+      display: none;
+      border-top: 1px solid rgba(0,119,182,0.12);
+      background: rgba(255,255,255,0.98);
+    }
+    .mobile-menu-inner{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 2rem 1rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+    .mobile-menu a{
+      text-decoration: none;
+      padding: 0.9rem 0.9rem;
+      border-radius: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+      background: var(--bg-light);
+      border: 1px solid rgba(0,119,182,0.10);
+    }
+    .mobile-menu a:hover { border-color: rgba(0,180,216,0.4); }
+    .mobile-menu .nav-cta{
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
+      color: var(--white) !important;
+      border: none;
+    }
+
+    /* ===== Hero ===== */
     .hero {
-      margin-top: 80px;
+      margin-top: 78px;
       min-height: 90vh;
       display: flex;
       align-items: center;
@@ -123,11 +175,22 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(0, 180, 216, 0.1) 0%, transparent 70%);
+      top: -55%;
+      right: -25%;
+      width: 820px;
+      height: 820px;
+      background: radial-gradient(circle, rgba(0, 180, 216, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -45%;
+      left: -25%;
+      width: 740px;
+      height: 740px;
+      background: radial-gradient(circle, rgba(0, 119, 182, 0.10) 0%, transparent 70%);
       border-radius: 50%;
     }
 
@@ -136,7 +199,7 @@
       margin: 0 auto;
       padding: 4rem 2rem;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.05fr 0.95fr;
       gap: 4rem;
       align-items: center;
       position: relative;
@@ -144,10 +207,10 @@
     }
 
     .hero-content h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
+      font-size: 3.35rem;
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
       background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -155,10 +218,11 @@
     }
 
     .hero-content p {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       color: var(--text-gray);
       margin-bottom: 2rem;
       line-height: 1.8;
+      max-width: 52ch;
     }
 
     .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
@@ -166,155 +230,178 @@
     .btn-primary {
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
       color: var(--white);
-      padding: 1rem 2rem;
-      border-radius: 50px;
+      padding: 1rem 1.6rem;
+      border-radius: 999px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 800;
       font-size: 1rem;
-      transition: all 0.3s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      box-shadow: 0 4px 15px rgba(0, 119, 182, 0.3);
+      box-shadow: 0 10px 24px rgba(0,119,182,0.25);
     }
-
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 119, 182, 0.4); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 30px rgba(0,119,182,0.30); }
 
     .btn-secondary {
       background: var(--white);
       color: var(--primary-blue);
-      padding: 1rem 2rem;
-      border-radius: 50px;
+      padding: 1rem 1.6rem;
+      border-radius: 999px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 800;
       font-size: 1rem;
-      border: 2px solid var(--primary-blue);
-      transition: all 0.3s ease;
+      border: 2px solid rgba(0,119,182,0.65);
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
     }
+    .btn-secondary:hover { background: var(--primary-blue); color: var(--white); transform: translateY(-2px); }
 
-    .btn-secondary:hover { background: var(--primary-blue); color: var(--white); }
+    .hero-image { position: relative; display: grid; place-items: center; }
 
-    .hero-image { position: relative; }
-    .hero-image img {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 20px;
+    /* Premium photo framing */
+    .hero-image .hero-photo {
+      width: min(520px, 100%);
+      height: 540px;
+      border-radius: 22px;
+      object-fit: cover;
       box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(0,119,182,0.10);
     }
 
     .floating-card {
       position: absolute;
-      background: var(--white);
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
+      background: rgba(255,255,255,0.92);
+      padding: 0.95rem 1.15rem;
+      border-radius: 14px;
       box-shadow: var(--shadow-lg);
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      border: 1px solid rgba(0,119,182,0.10);
+      backdrop-filter: blur(10px);
     }
 
-    .floating-card-1 { top: 10%; left: -10%; animation: float 6s ease-in-out infinite; }
-    .floating-card-2 { bottom: 20%; right: -5%; animation: float 6s ease-in-out infinite reverse; }
+    .floating-card-1 { top: 8%; left: -10%; animation: float 6s ease-in-out infinite; }
+    .floating-card-2 { bottom: 16%; right: -8%; animation: float 6s ease-in-out infinite reverse; }
 
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
+      50% { transform: translateY(-18px); }
     }
 
     .floating-card .icon {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       background: linear-gradient(135deg, var(--accent-green), var(--primary-teal));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
       color: var(--white);
-      font-size: 1.2rem;
+      font-size: 1.15rem;
+      flex-shrink: 0;
     }
 
-    /* Features */
-    .features { padding: 6rem 2rem; background: var(--white); }
+    /* ===== Sections ===== */
     .container { max-width: 1200px; margin: 0 auto; }
 
     .section-header { text-align: center; margin-bottom: 4rem; }
-    .section-header h2 { font-size: 2.5rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1rem; }
-    .section-header p { font-size: 1.125rem; color: var(--text-gray); max-width: 600px; margin: 0 auto; }
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 0.9rem;
+      letter-spacing: -0.02em;
+    }
+    .section-header p {
+      font-size: 1.125rem;
+      color: var(--text-gray);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ===== Features ===== */
+    .features { padding: 6rem 2rem; background: var(--white); }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
     }
 
     .feature-card {
       background: var(--bg-light);
-      padding: 2.5rem;
-      border-radius: 16px;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(0, 119, 182, 0.1);
+      padding: 2.25rem;
+      border-radius: var(--radius);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      border: 1px solid rgba(0,119,182,0.12);
     }
-
-    .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary-teal); }
+    .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(0,180,216,0.45); }
 
     .feature-icon {
-      width: 60px;
-      height: 60px;
+      width: 62px;
+      height: 62px;
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
       color: var(--white);
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
+      font-size: 1.55rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 12px 26px rgba(0,119,182,0.18);
     }
 
-    .feature-card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text-dark); }
-    .feature-card p { color: var(--text-gray); line-height: 1.7; }
+    .feature-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.6rem; color: var(--text-dark); }
+    .feature-card p { color: var(--text-gray); line-height: 1.75; }
 
-    /* About */
+    /* ===== About ===== */
     .about { padding: 6rem 2rem; background: linear-gradient(135deg, var(--bg-light), var(--white)); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
 
-    .about-image img { width: 100%; border-radius: 20px; box-shadow: var(--shadow-lg); }
+    .about-image img { width: 100%; border-radius: 20px; box-shadow: var(--shadow-lg); border: 1px solid rgba(0,119,182,0.10); }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 2rem;
+      gap: 1.25rem;
+      margin-top: 1.75rem;
     }
 
-    .stat-item { background: var(--white); padding: 1.5rem; border-radius: 12px; text-align: center; box-shadow: var(--shadow); }
-    .stat-number { font-size: 2rem; font-weight: 700; color: var(--primary-blue); display: block; }
-    .stat-label { font-size: 0.875rem; color: var(--text-gray); margin-top: 0.25rem; }
+    .stat-item {
+      background: rgba(255,255,255,0.92);
+      padding: 1.35rem;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,119,182,0.10);
+      backdrop-filter: blur(10px);
+    }
+    .stat-number { font-size: 2rem; font-weight: 900; color: var(--primary-blue); display: block; letter-spacing: -0.02em; }
+    .stat-label { font-size: 0.9rem; color: var(--text-gray); margin-top: 0.25rem; font-weight: 600; }
 
-    .about-content h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-dark); }
-    .about-content p { color: var(--text-gray); margin-bottom: 1.5rem; line-height: 1.8; font-size: 1.1rem; }
+    .about-content h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 1.25rem; color: var(--text-dark); letter-spacing: -0.02em; }
+    .about-content p { color: var(--text-gray); margin-bottom: 1.25rem; line-height: 1.9; font-size: 1.05rem; }
 
-    /* Shop */
+    /* ===== Shop ===== */
     .shop { padding: 6rem 2rem; background: var(--white); }
 
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      gap: 1.75rem;
       margin-top: 3rem;
     }
 
     .product-card {
       background: var(--white);
-      border-radius: 16px;
+      border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(0, 119, 182, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid rgba(0,119,182,0.12);
     }
+    .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 
-    .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
-
-    /* Bigger image area + better scaling + no cut off */
     .product-image {
       height: 320px;
       background: linear-gradient(135deg, var(--bg-light), var(--light-blue));
@@ -332,12 +419,13 @@
       left: 1rem;
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
       color: var(--white);
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 900;
       text-transform: uppercase;
       z-index: 2;
+      box-shadow: 0 10px 22px rgba(0,119,182,0.22);
     }
 
     .product-image img {
@@ -346,112 +434,124 @@
       object-fit: contain;
       max-width: 92%;
       max-height: 92%;
-      display: block;
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.10));
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.12));
     }
 
     .product-info { padding: 1.5rem; }
+
     .product-category {
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       color: var(--primary-teal);
-      font-weight: 600;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 0.5rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.45rem;
     }
 
-    .product-title { font-size: 1.25rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.5rem; }
-    .product-description { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 1rem; line-height: 1.6; }
+    .product-title { font-size: 1.25rem; font-weight: 900; color: var(--text-dark); margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+    .product-description { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 1rem; line-height: 1.7; }
 
     .product-footer { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; }
-    .product-price { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); white-space: nowrap; }
-    .product-price span { font-size: 0.875rem; color: var(--text-gray); font-weight: 400; text-decoration: line-through; margin-left: 0.5rem; }
+
+    .product-price { font-size: 1.5rem; font-weight: 900; color: var(--primary-blue); white-space: nowrap; }
+    .product-price span {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      font-weight: 700;
+      text-decoration: line-through;
+      margin-left: 0.5rem;
+      opacity: 0.75;
+    }
 
     .add-to-cart {
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
       color: var(--white);
       border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 50px;
-      font-weight: 600;
+      padding: 0.75rem 1.25rem;
+      border-radius: 999px;
+      font-weight: 900;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
       white-space: nowrap;
+      box-shadow: 0 10px 22px rgba(0,119,182,0.22);
     }
+    .add-to-cart:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0,119,182,0.28); filter: saturate(1.05); }
 
-    .add-to-cart:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0, 119, 182, 0.3); }
-
-    /* Science */
+    /* ===== Science ===== */
     .science { padding: 6rem 2rem; background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue)); color: var(--white); }
     .science .section-header h2, .science .section-header p { color: var(--white); }
 
     .science-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      gap: 1.5rem;
       margin-top: 3rem;
     }
 
     .science-card {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.10);
       backdrop-filter: blur(10px);
       padding: 2rem;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.3s ease;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.20);
+      transition: transform 0.2s ease, background 0.2s ease;
     }
+    .science-card:hover { background: rgba(255,255,255,0.14); transform: translateY(-4px); }
+    .science-card h3 { font-size: 1.2rem; margin-bottom: 0.8rem; color: var(--accent-green); font-weight: 900; }
+    .science-card p { line-height: 1.75; opacity: 0.92; }
 
-    .science-card:hover { background: rgba(255, 255, 255, 0.15); transform: translateY(-5px); }
-    .science-card h3 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--accent-green); }
-    .science-card p { line-height: 1.7; opacity: 0.9; }
-
-    /* FAQ */
+    /* ===== FAQ ===== */
     .faq { padding: 6rem 2rem; background: var(--white); }
-    .faq-list { max-width: 800px; margin: 3rem auto 0; }
-    .faq-item { border-bottom: 1px solid rgba(0, 119, 182, 0.1); padding: 1.5rem 0; }
+    .faq-list { max-width: 860px; margin: 3rem auto 0; }
 
+    .faq-item { border-bottom: 1px solid rgba(0,119,182,0.12); padding: 1.25rem 0; }
     .faq-question {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 1.05rem;
+      font-weight: 900;
       color: var(--text-dark);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: color 0.3s ease;
       gap: 1rem;
+      user-select: none;
     }
-
     .faq-question:hover { color: var(--primary-blue); }
-    .faq-answer { margin-top: 1rem; color: var(--text-gray); line-height: 1.7; display: none; }
+    .faq-answer {
+      margin-top: 0.85rem;
+      color: var(--text-gray);
+      line-height: 1.8;
+      display: none;
+      padding-right: 2rem;
+    }
     .faq-item.active .faq-answer { display: block; }
-    .faq-icon { font-size: 1.5rem; color: var(--primary-teal); transition: transform 0.3s ease; }
+    .faq-icon { font-size: 1.5rem; color: var(--primary-teal); transition: transform 0.2s ease; }
     .faq-item.active .faq-icon { transform: rotate(45deg); }
 
-    /* Contact */
+    /* ===== Contact ===== */
     .contact { padding: 6rem 2rem; background: linear-gradient(135deg, var(--bg-light), var(--white)); }
 
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      gap: 3rem;
       max-width: 1000px;
       margin: 3rem auto 0;
+      align-items: start;
     }
 
-    .contact-info h3 { font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--text-dark); }
-    .contact-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+    .contact-info h3 { font-size: 1.5rem; margin-bottom: 1.25rem; color: var(--text-dark); font-weight: 900; }
 
-    /* Contact icons as real images */
+    .contact-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+
     .contact-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: rgba(0, 180, 216, 0.12);
-      border: 1px solid rgba(0, 119, 182, 0.18);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(0,180,216,0.12);
+      border: 1px solid rgba(0,119,182,0.18);
+      display: grid;
+      place-items: center;
       flex-shrink: 0;
       overflow: hidden;
     }
@@ -460,37 +560,40 @@
       width: 24px;
       height: 24px;
       object-fit: contain;
-      display: block;
       filter: drop-shadow(0 6px 10px rgba(0,0,0,0.08));
     }
 
-    .contact-item div h4 { font-weight: 600; color: var(--text-dark); margin-bottom: 0.25rem; }
-    .contact-item div p, .contact-item div a { color: var(--text-gray); text-decoration: none; }
+    .contact-item div h4 { font-weight: 900; color: var(--text-dark); margin-bottom: 0.2rem; }
+    .contact-item div p, .contact-item div a { color: var(--text-gray); text-decoration: none; font-weight: 600; }
     .contact-item div a:hover { text-decoration: underline; color: var(--primary-blue); }
 
     .contact-form {
-      background: var(--white);
-      padding: 2.5rem;
-      border-radius: 16px;
+      background: rgba(255,255,255,0.96);
+      padding: 2.25rem;
+      border-radius: var(--radius);
       box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(0,119,182,0.10);
+      backdrop-filter: blur(10px);
     }
 
-    .form-group { margin-bottom: 1.5rem; }
-    .form-group label { display: block; font-weight: 500; color: var(--text-dark); margin-bottom: 0.5rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-weight: 800; color: var(--text-dark); margin-bottom: 0.5rem; }
 
     .form-group input, .form-group textarea {
       width: 100%;
-      padding: 0.75rem 1rem;
-      border: 2px solid rgba(0, 119, 182, 0.1);
-      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      border: 2px solid rgba(0,119,182,0.12);
+      border-radius: 12px;
       font-family: inherit;
       font-size: 1rem;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      background: var(--white);
     }
 
     .form-group input:focus, .form-group textarea:focus {
       outline: none;
-      border-color: var(--primary-teal);
+      border-color: rgba(0,180,216,0.75);
+      box-shadow: 0 0 0 4px rgba(0,180,216,0.14);
     }
 
     .form-group textarea { resize: vertical; min-height: 120px; }
@@ -501,97 +604,120 @@
       color: var(--white);
       border: none;
       padding: 1rem;
-      border-radius: 50px;
-      font-weight: 600;
+      border-radius: 999px;
+      font-weight: 900;
       font-size: 1rem;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 12px 26px rgba(0,119,182,0.22);
     }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(0,119,182,0.28); }
 
-    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 119, 182, 0.3); }
-
-    /* Footer */
+    /* ===== Footer ===== */
     .footer { background: var(--text-dark); color: var(--white); padding: 4rem 2rem 2rem; }
 
     .footer-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem;
+      gap: 2.5rem;
       max-width: 1200px;
-      margin: 0 auto 3rem;
+      margin: 0 auto 2.5rem;
     }
 
     .footer-brand img { height: 50px; margin-bottom: 1rem; }
+    .footer-brand p { color: rgba(255,255,255,0.72); line-height: 1.8; margin-bottom: 1.25rem; max-width: 48ch; font-weight: 500; }
 
-    .footer-brand p {
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-      max-width: 44ch;
-    }
-
-    .footer-column h4 { font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--accent-green); }
+    .footer-column h4 { font-size: 1.05rem; margin-bottom: 1.25rem; color: var(--accent-green); font-weight: 900; }
     .footer-column ul { list-style: none; }
-    .footer-column li { margin-bottom: 0.75rem; }
-
-    .footer-column a {
-      color: rgba(255, 255, 255, 0.7);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
+    .footer-column li { margin-bottom: 0.7rem; }
+    .footer-column a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s ease; font-weight: 600; }
     .footer-column a:hover { color: var(--white); }
 
     .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      padding-top: 1.5rem;
       text-align: center;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255,255,255,0.55);
       font-size: 0.9rem;
+      font-weight: 600;
     }
 
-    /* Responsive */
+    /* ===== Responsive ===== */
     @media (max-width: 968px) {
       .nav-links { display: none; }
-      .mobile-menu-btn { display: block; }
+      .mobile-menu-btn { display: inline-flex; align-items: center; justify-content: center; }
+      .mobile-menu.open { display: block; }
 
       .hero-container, .about-grid, .contact-grid {
         grid-template-columns: 1fr;
         text-align: center;
       }
 
-      .hero-content h1 { font-size: 2.5rem; }
+      .hero-content p { margin-left: auto; margin-right: auto; }
       .hero-buttons { justify-content: center; }
 
-      .footer-grid { grid-template-columns: 1fr 1fr; }
       .floating-card { display: none; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 640px) {
-      .footer-grid { grid-template-columns: 1fr; }
+      .nav-container { padding: 0 1rem; }
+      .mobile-menu-inner { padding: 0.75rem 1rem 1rem; }
+      .hero-container { padding: 3.25rem 1rem; }
+      .features, .about, .shop, .science, .faq, .contact { padding: 5rem 1rem; }
+
+      .hero-content h1 { font-size: 2.25rem; }
       .section-header h2 { font-size: 2rem; }
-      .hero-content h1 { font-size: 2rem; }
+
+      .hero-image .hero-photo { height: 420px; }
+
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .floating-card-1, .floating-card-2 { animation: none; }
+      .btn-primary, .btn-secondary, .feature-card, .product-card, .science-card, .nav-cta { transition: none; }
     }
   </style>
 </head>
 
 <body>
   <!-- Navigation -->
-  <nav class="navbar">
+  <nav class="navbar" aria-label="Primary">
     <div class="nav-container">
-      <a href="#" class="logo">
-        <img src="uthful.png" alt="Uthful Wellness" style="height: 50px;">
+      <a href="#home" class="logo" aria-label="Uthful Wellness Home">
+        <img src="uthful.png" alt="Uthful Wellness" />
       </a>
-      <ul class="nav-links">
+
+      <ul class="nav-links" role="list">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#shop">Shop</a></li>
         <li><a href="#science">Science</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#shop" class="nav-cta">Shop Now</a></li>
+        <li><a href="#shop" class="nav-cta">Shop Now →</a></li>
       </ul>
-      <button class="mobile-menu-btn">☰</button>
+
+      <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        ☰
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-inner">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#shop">Shop</a>
+        <a href="#science">Science</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+        <a href="#shop" class="nav-cta">Shop Now →</a>
+      </div>
     </div>
   </nav>
 
@@ -600,74 +726,90 @@
     <div class="hero-container">
       <div class="hero-content">
         <h1>Unlock Your Cellular Potential with NMN</h1>
-        <p>Experience renewed energy, enhanced vitality, and healthy aging with our pharmaceutical-grade NMN supplements. Scientifically formulated for all ages.</p>
+        <p>
+          Experience renewed energy, enhanced vitality, and healthy aging with our pharmaceutical-grade NMN supplements.
+          Scientifically formulated for all ages.
+        </p>
         <div class="hero-buttons">
           <a href="#shop" class="btn-primary">Shop NMN Supplements →</a>
           <a href="#science" class="btn-secondary">Learn the Science</a>
         </div>
       </div>
+
       <div class="hero-image">
-        <img src="uthful.png" alt="Uthful Wellness" style="max-width: 400px; width: 100%; height: auto; display: block; margin: 0 auto;">
-        <div class="floating-card floating-card-1">
+        <!-- IMPORTANT:
+             If your image is inside /attached_assets/, change src to: attached_assets/canal.png -->
+        <img class="hero-photo" src="canal.png" alt="Happy older woman walking her golden retriever on the C&O Canal towpath" loading="eager" />
+
+        <div class="floating-card floating-card-1" aria-hidden="true">
           <div class="icon">⚡</div>
-          <div><strong>99% Pure</strong><br>Pharmaceutical Grade</div>
+          <div><strong>99% Pure</strong><br />Pharmaceutical Grade</div>
         </div>
-        <div class="floating-card floating-card-2">
+
+        <div class="floating-card floating-card-2" aria-hidden="true">
           <div class="icon">🧬</div>
-          <div><strong>NAD+ Boost</strong><br>Cellular Energy</div>
+          <div><strong>NAD+ Boost</strong><br />Cellular Energy</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Features -->
-  <section class="features">
+  <section class="features" aria-label="Why choose Uthful">
     <div class="container">
       <div class="section-header">
         <h2>Why Choose Uthful Wellness?</h2>
-        <p>Premium NMN supplements backed by science, manufactured to the highest standards</p>
+        <p>Premium NMN supplements backed by science, manufactured to the highest standards.</p>
       </div>
+
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">🔬</div>
           <h3>Third-Party Tested</h3>
-          <p>Every batch is independently tested for purity and potency. Certificate of Analysis available for all products.</p>
+          <p>Every batch is independently tested for purity and potency. Certificates of Analysis available.</p>
         </div>
+
         <div class="feature-card">
           <div class="feature-icon">🌿</div>
           <h3>Clean Ingredients</h3>
           <p>No fillers, binders, or artificial ingredients. Just pure NMN in vegetable capsules.</p>
         </div>
+
         <div class="feature-card">
           <div class="feature-icon">📦</div>
           <h3>Stabilized Formula</h3>
-          <p>Advanced packaging protects NMN from degradation, ensuring maximum potency through expiration.</p>
+          <p>Advanced packaging protects NMN from degradation, ensuring maximum potency.</p>
         </div>
+
         <div class="feature-card">
           <div class="feature-icon">🚚</div>
           <h3>Fast Shipping</h3>
-          <p>Free shipping on orders over $50. Delivered to your door in 2-3 business days.</p>
+          <p>Free shipping on orders over $50. Delivered to your door in 2–3 business days.</p>
         </div>
+
         <div class="feature-card">
           <div class="feature-icon">💯</div>
           <h3>Money-Back Guarantee</h3>
           <p>Not satisfied? Return within 60 days for a full refund. No questions asked.</p>
         </div>
+
         <div class="feature-card">
           <div class="feature-icon">🏆</div>
           <h3>Expert Formulated</h3>
-          <p>Developed with biochemists and anti-aging researchers for optimal bioavailability.</p>
+          <p>Developed with biochemists and wellness researchers for optimal bioavailability.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- About -->
-  <section id="about" class="about">
+  <section id="about" class="about" aria-label="About Uthful">
     <div class="container">
       <div class="about-grid">
         <div class="about-image">
-          <img src="https://via.placeholder.com/600x500/f0f9ff/0077b6?text=Our+Mission" alt="Uthful Wellness Mission">
+          <!-- swap this placeholder anytime -->
+          <img src="https://via.placeholder.com/600x500/f0f9ff/0077b6?text=Our+Mission" alt="Uthful Wellness mission" loading="lazy" />
+
           <div class="stats-grid">
             <div class="stat-item"><span class="stat-number">50K+</span><span class="stat-label">Happy Customers</span></div>
             <div class="stat-item"><span class="stat-number">99%</span><span class="stat-label">Purity Guaranteed</span></div>
@@ -675,11 +817,21 @@
             <div class="stat-item"><span class="stat-number">60-Day</span><span class="stat-label">Return Policy</span></div>
           </div>
         </div>
+
         <div class="about-content">
           <h2>Our Mission: Vitality for Every Generation</h2>
-          <p>At Uthful Wellness, we believe that aging doesn't have to mean declining. Founded by a team of biochemists and wellness enthusiasts, we're dedicated to making cutting-edge longevity science accessible to everyone.</p>
-          <p>Our NMN (Nicotinamide Mononucleotide) supplements are designed to support your body's natural NAD+ production—the coenzyme essential for cellular energy, DNA repair, and healthy aging.</p>
-          <p>Whether you're a busy professional seeking sustained energy, an athlete optimizing recovery, or simply someone who wants to age gracefully, Uthful is here to support your journey.</p>
+          <p>
+            At Uthful Wellness, we believe aging doesn't have to mean declining. We’re dedicated to making
+            cutting-edge longevity science accessible with clean, high-quality NMN.
+          </p>
+          <p>
+            NMN (Nicotinamide Mononucleotide) supports your body’s natural NAD+ production—an essential coenzyme
+            for cellular energy, DNA repair, and healthy aging.
+          </p>
+          <p>
+            Whether you’re a busy professional seeking steady energy, an athlete optimizing recovery, or someone who
+            wants to age well—Uthful is here for your journey.
+          </p>
           <a href="#shop" class="btn-primary">Explore Our Products →</a>
         </div>
       </div>
@@ -687,18 +839,18 @@
   </section>
 
   <!-- Shop -->
-  <section id="shop" class="shop">
+  <section id="shop" class="shop" aria-label="Shop NMN supplements">
     <div class="container">
       <div class="section-header">
         <h2>Shop NMN Supplements</h2>
-        <p>Premium formulations for every lifestyle and wellness goal</p>
+        <p>Premium formulations for every lifestyle and wellness goal.</p>
       </div>
 
       <div class="products-grid">
         <div class="product-card">
           <div class="product-image">
             <span class="product-badge">Bestseller</span>
-            <img src="uthful 500mg.png" alt="NMN 500mg Capsules">
+            <img src="uthful 500mg.png" alt="NMN 500mg Capsules" loading="lazy" />
           </div>
           <div class="product-info">
             <span class="product-category">Daily Wellness</span>
@@ -706,7 +858,7 @@
             <p class="product-description">Perfect for beginners. Supports energy, focus, and cellular health.</p>
             <div class="product-footer">
               <span class="product-price">$49<span>$69</span></span>
-              <button class="add-to-cart">Add to Cart</button>
+              <button class="add-to-cart" data-product="NMN 500mg">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -714,7 +866,7 @@
         <div class="product-card">
           <div class="product-image">
             <span class="product-badge">Most Popular</span>
-            <img src="uthfull 1000mg.png" alt="NMN 1000mg Capsules">
+            <img src="uthfull 1000mg.png" alt="NMN 1000mg Capsules" loading="lazy" />
           </div>
           <div class="product-info">
             <span class="product-category">Advanced</span>
@@ -722,7 +874,7 @@
             <p class="product-description">Double strength for enhanced NAD+ support and anti-aging benefits.</p>
             <div class="product-footer">
               <span class="product-price">$79<span>$99</span></span>
-              <button class="add-to-cart">Add to Cart</button>
+              <button class="add-to-cart" data-product="NMN 1000mg">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -730,7 +882,7 @@
         <div class="product-card">
           <div class="product-image">
             <span class="product-badge">Flexible</span>
-            <img src="uthful nmn pure powder.png" alt="NMN Pure Powder">
+            <img src="uthful nmn pure powder.png" alt="NMN Pure Powder" loading="lazy" />
           </div>
           <div class="product-info">
             <span class="product-category">Flexible Dosing</span>
@@ -738,7 +890,7 @@
             <p class="product-description">Unflavored powder for customized dosing. 30g per container.</p>
             <div class="product-footer">
               <span class="product-price">$89</span>
-              <button class="add-to-cart">Add to Cart</button>
+              <button class="add-to-cart" data-product="NMN Powder">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -747,25 +899,29 @@
   </section>
 
   <!-- Science -->
-  <section id="science" class="science">
+  <section id="science" class="science" aria-label="The science of NMN">
     <div class="container">
       <div class="section-header">
         <h2>The Science of NMN</h2>
-        <p>Understanding how NMN supports your cellular health and longevity</p>
+        <p>Understanding how NMN supports your cellular health and longevity.</p>
       </div>
+
       <div class="science-grid">
         <div class="science-card">
           <h3>🧬 What is NMN?</h3>
-          <p>NMN is a direct precursor to NAD+, a vital coenzyme found in every cell for energy production and cellular signaling.</p>
+          <p>NMN is a direct precursor to NAD+, a vital coenzyme found in every cell for energy and cellular signaling.</p>
         </div>
+
         <div class="science-card">
           <h3>⚡ Energy Production</h3>
-          <p>NAD+ supports mitochondrial function. Healthy NAD+ levels help sustain daily energy without crashes.</p>
+          <p>NAD+ supports mitochondrial function. Healthy levels help sustain daily energy without crashes.</p>
         </div>
+
         <div class="science-card">
           <h3>🛡️ DNA Repair</h3>
-          <p>NAD+ activates proteins that regulate cellular health and DNA repair, supporting healthy aging.</p>
+          <p>NAD+ activates proteins involved in cellular health and repair mechanisms that support healthy aging.</p>
         </div>
+
         <div class="science-card">
           <h3>📉 Why Supplement?</h3>
           <p>NAD+ naturally declines with age. NMN supplementation can help replenish levels over time.</p>
@@ -775,39 +931,62 @@
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="faq">
+  <section id="faq" class="faq" aria-label="Frequently asked questions">
     <div class="container">
       <div class="section-header">
         <h2>Frequently Asked Questions</h2>
-        <p>Everything you need to know about NMN and Uthful Wellness</p>
+        <p>Everything you need to know about NMN and Uthful Wellness.</p>
       </div>
+
       <div class="faq-list">
         <div class="faq-item">
-          <div class="faq-question">What is NMN and how does it work? <span class="faq-icon">+</span></div>
-          <div class="faq-answer">NMN is a precursor to NAD+. Your body converts NMN into NAD+, which supports cellular energy and healthy aging.</div>
+          <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+            What is NMN and how does it work?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-answer">
+            NMN is a precursor to NAD+. Your body converts NMN into NAD+, which supports cellular energy and healthy aging.
+          </div>
         </div>
+
         <div class="faq-item">
-          <div class="faq-question">How long does it take to see results? <span class="faq-icon">+</span></div>
-          <div class="faq-answer">Many customers report benefits within 2–4 weeks, with best results from consistent use over 3 months.</div>
+          <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+            How long does it take to see results?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-answer">
+            Many customers report benefits within 2–4 weeks, with best results from consistent use over 8–12 weeks.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+            Is your NMN third-party tested?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-answer">
+            Yes. Every batch is tested for identity, purity, and potency. Certificates of Analysis are available.
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="contact">
+  <section id="contact" class="contact" aria-label="Contact Uthful Wellness">
     <div class="container">
       <div class="section-header">
         <h2>Get In Touch</h2>
-        <p>Have questions? We're here to help you on your wellness journey</p>
+        <p>Have questions? We're here to help you on your wellness journey.</p>
       </div>
+
       <div class="contact-grid">
         <div class="contact-info">
           <h3>Contact Information</h3>
 
           <div class="contact-item">
             <div class="contact-icon">
-              <img src="email.png" alt="Email icon">
+              <img src="email.png" alt="Email icon" loading="lazy" />
             </div>
             <div>
               <h4>Email</h4>
@@ -817,7 +996,7 @@
 
           <div class="contact-item">
             <div class="contact-icon">
-              <img src="delware.png" alt="Delaware icon">
+              <img src="delware.png" alt="Location icon" loading="lazy" />
             </div>
             <div>
               <h4>Location</h4>
@@ -827,7 +1006,7 @@
 
           <div class="contact-item">
             <div class="contact-icon">
-              <img src="instagram.png" alt="Instagram icon">
+              <img src="instagram.png" alt="Instagram icon" loading="lazy" />
             </div>
             <div>
               <h4>Instagram</h4>
@@ -840,23 +1019,27 @@
           </div>
         </div>
 
-        <form class="contact-form">
+        <form class="contact-form" id="contactForm">
           <div class="form-group">
             <label for="name">Full Name</label>
-            <input type="text" id="name" placeholder="John Doe" required>
+            <input type="text" id="name" placeholder="John Doe" autocomplete="name" required />
           </div>
+
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="john@example.com" required>
+            <input type="email" id="email" placeholder="john@example.com" autocomplete="email" required />
           </div>
+
           <div class="form-group">
             <label for="subject">Subject</label>
-            <input type="text" id="subject" placeholder="How can we help?">
+            <input type="text" id="subject" placeholder="How can we help?" />
           </div>
+
           <div class="form-group">
             <label for="message">Message</label>
             <textarea id="message" placeholder="Tell us more about your question..."></textarea>
           </div>
+
           <button type="submit" class="submit-btn">Send Message →</button>
         </form>
       </div>
@@ -864,12 +1047,11 @@
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" aria-label="Footer">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="uthful.png" alt="Uthful Wellness">
+        <img src="uthful.png" alt="Uthful Wellness" loading="lazy" />
         <p>Premium NMN supplements for cellular health and healthy aging. Science-backed, purity-tested, made for every generation.</p>
-        <!-- Instagram removed from footer per request -->
       </div>
 
       <div class="footer-column">
@@ -906,50 +1088,91 @@
   </footer>
 
   <script>
-    // FAQ Accordion
-    document.querySelectorAll('.faq-question').forEach(question => {
-      question.addEventListener('click', () => {
-        const item = question.parentElement;
-        item.classList.toggle('active');
-      });
-    });
+    // ===== Navbar shadow on scroll =====
+    const navbar = document.querySelector('.navbar');
+    const onScroll = () => {
+      if (!navbar) return;
+      navbar.classList.toggle('scrolled', window.scrollY > 8);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
-    // Mobile Menu Toggle (basic)
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    if (menuBtn && navLinks) {
+    // ===== Mobile menu toggle =====
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    function setMenuOpen(isOpen) {
+      if (!mobileMenu || !menuBtn) return;
+      mobileMenu.classList.toggle('open', isOpen);
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+      menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      menuBtn.textContent = isOpen ? '✕' : '☰';
+    }
+
+    if (menuBtn && mobileMenu) {
       menuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
+        const isOpen = mobileMenu.classList.contains('open');
+        setMenuOpen(!isOpen);
+      });
+
+      // Close menu when clicking a link
+      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', () => setMenuOpen(false));
+      });
+
+      // Close on escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setMenuOpen(false);
       });
     }
 
-    // Smooth scroll for navigation links
+    // ===== Smooth scroll for anchors (with fixed nav offset) =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (!href || href === '#') return;
-        e.preventDefault();
+
         const target = document.querySelector(href);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (!target) return;
+
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
-    // Add to cart button feedback
+    // ===== FAQ accordion (click + keyboard) =====
+    document.querySelectorAll('.faq-question').forEach(q => {
+      const toggle = () => {
+        const item = q.parentElement;
+        const isActive = item.classList.toggle('active');
+        q.setAttribute('aria-expanded', String(isActive));
+      };
+
+      q.addEventListener('click', toggle);
+      q.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+
+    // ===== Add to cart feedback (no real cart yet) =====
     document.querySelectorAll('.add-to-cart').forEach(btn => {
       btn.addEventListener('click', () => {
+        const original = btn.textContent;
         btn.textContent = 'Added!';
-        btn.style.background = '#90e0ef';
-        btn.style.color = '#023e8a';
+        btn.disabled = true;
+
         setTimeout(() => {
-          btn.textContent = 'Add to Cart';
-          btn.style.background = '';
-          btn.style.color = '';
-        }, 2000);
+          btn.textContent = original;
+          btn.disabled = false;
+        }, 1400);
       });
     });
 
-    // Form submission (placeholder)
-    const contactForm = document.querySelector('.contact-form');
+    // ===== Contact form (placeholder) =====
+    const contactForm = document.getElementById('contactForm');
     if (contactForm) {
       contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
